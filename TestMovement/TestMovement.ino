@@ -29,39 +29,39 @@ void loop()
   if (stringComplete) {
     Serial.println(inputString); 
     
-    if(inputString == "w\n"){
+    if(inputString.indexOf('w') != -1){
       DriveForward();
       delay(1);
       Serial.println("FORWARD");
     }
-    else if(inputString == "s\n"){
+    else if(inputString.indexOf('s') != -1){
       DriveReward();
       delay(1);
       Serial.println("REWARD");
     }
-    else if(inputString == "a\n"){
+    else if(inputString.indexOf('a') != -1){
       RotateLeft();
       delay(1);
       Serial.println("RotateLeft");
     }
-    else if(inputString == "d\n"){
+    else if(inputString.indexOf('d') !=  -1){
       RotateRight();
       delay(1);
       Serial.println("RotateRight");
     }
-    else if(inputString == "1\n"){
+    else if(inputString.indexOf('1') != -1){
       LeftForward();
       delay(1);
     }
-    else if(inputString == "2\n"){
+    else if(inputString.indexOf('2') != -1){
       LeftReward();
       delay(1);      
     }
-    else if(inputString == "3\n"){
+    else if(inputString.indexOf('3') != -1){
       RightForward();
       delay(1);      
     }
-    else if(inputString == "4\n"){
+    else if(inputString.indexOf('4') != -1){
       RightReward();
       delay(1);      
     }
