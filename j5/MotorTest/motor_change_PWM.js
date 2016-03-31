@@ -1,59 +1,64 @@
-var five = require("johnny-five"),
-  board = new five.Board();
+var five = require("johnny-five");
+var board = new five.Board();
 
 board.on("ready", function() {
-  var motor;
-  motor = new five.Motor({
+  var speed = 0;
+  var motorLeft = new five.Motor({
     pins: {
       pwm: 4,
       dir: 50,
       cdir: 51
-      // pwm: 5,
-      // dir: 52,
-      // cdir: 53
     }
   });
-
-
-
+  var motorRight = new five.Motor({
+    pins: {
+      pwm: 5,
+      dir: 52,
+      cdir: 53
+    }
+  });
+  var motorUtils = {
+    Forward : function(pwm) {
+      motorRight.forward(pwm);
+      motorLeft.forward(pwm);
+    },
+    Backward : function(pwm) {
+      motorRight.reverse(pwm);
+      motorLeft.reverse(pwm);
+    },
+    RotateLeft : function(pwm) {
+      motorRight.forward(pwm);
+      motorLeft.reverse(pwm);
+    },
+    RotateRight : function(pwm) {
+      motorRight.reverse(pwm);
+      motorLeft.forward(pwm);
+    },
+    TurnLeft : function(pwm) {
+      motorRight.forward(pwm);
+      motorLeft.brake();
+    },
+    TurnRight : function(pwm) {
+      motorRight.brake();
+      motorLeft.forward(pwm);
+    },
+    Stop : function() {
+      motorRight.brake();
+      motorLeft.brake();
+    }
+  }
 
   board.repl.inject({
-    motor: motor
+    motorLeft : motorLeft,
+    motorRight : motorRight
   });
-
-  motor.on("start", function() {
-    console.log("start", Date.now());
-  });
-
-  motor.on("stop", function() {
-    console.log("automated stop on timer", Date.now());
-  });
-
-  motor.on("brake", function() {
-    console.log("automated brake on timer", Date.now());
-  });
-
-  motor.on("forward", function() {
-    console.log("forward", Date.now());
-
-    // demonstrate switching to reverse after 5 seconds
-    board.wait(5000, function() {
-      motor.reverse(255);
-    });
-  });
-
-  motor.on("reverse", function() {
-    console.log("reverse", Date.now());
-
-    // demonstrate braking after 5 seconds
-    board.wait(5000, function() {
-
-      // Brake for 500ms and call stop()
-      motor.brake(500);
-    });
-  });
-
-  // set the motor going forward full speed
-  motor.forward(255);
+  function increaseSpeed() {
+    speed += 30;
+    console.log(speed);
+    if(speed >= 255){
+      speed = 0;
+    }
+    motorUtils.Forward(speed);
+  }
+  setInterval(increaseSpeed, 1000);
 });
-xx

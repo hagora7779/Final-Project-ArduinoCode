@@ -67,47 +67,47 @@ board.on('ready', function(){
       return heading;
     },
     pidLoop : function() {
-      ctrl.setInput(10 - pidUtils.readCompass());
+      ctrl.setInput(10 - heading);
       ctrl.compute();
-      pidUtils.setMotor(ctrl.getOutput());
+      pidUtils.setMotor(ctrl);
     },
-    setMotor : function(output) {
-      //console.log('PID', Math.floor(ctrl.getOutput()) , Math.floor(ctrl.getSetPoint()), ctrl.getInput(), ctrl.getDirection(), heading);
+    setMotor : function(pid) {
+      console.log('PID', Math.floor(pid.getOutput()) , Math.floor(pid.getSetPoint()), Math.floor(pid.getInput()), pid.getDirection(), Math.floor(heading));
       //Q1 && Q2
-      if(ctrl.getSetPoint() >= 0 &&
-              ctrl.getSetPoint() < 180){
+      if(pid.getSetPoint() >= 0 &&
+              pid.getSetPoint() < 180){
                 console.log('Q1');
-        if((180+ctrl.getSetPoint()) > pidUtils.readCompass()){
-          console.log('right', output);
-          motorUtils.RotateRight(output);
+        if((180+pid.getSetPoint()) > heading){
+          console.log('right', pid.getOutput());
+          motorUtils.RotateRight(pid.getOutput());
         }
-        else if ((180+ctrl.getSetPoint()) < pidUtils.readCompass() ||
-                  ctrl.getSetPoint() > pidUtils.readCompass()) {
-          console.log('left');
-          motorUtils.RotateLeft(ctrl.getOutput());
+        else if ((180+pid.getSetPoint()) < heading ||
+                  pid.getSetPoint() > heading) {
+          console.log('left', pid.getOutput());
+          motorUtils.RotateLeft(pid.getOutput());
         }
       }
       //Q3
-      else if (ctrl.getSetPoint() > 180 &&
-               ctrl.getSetPoint() < 270){
+      else if (pid.getSetPoint() > 180 &&
+               pid.getSetPoint() < 270){
                  console.log('Q3');
-         if((180+ctrl.getSetPoint()) > pidUtils.readCompass()){
-           motorUtils.RotateRight(ctrl.getOutput());
+         if((180+pid.getSetPoint()) > heading){
+           motorUtils.RotateRight(pid.getOutput());
          }
-         else if (ctrl.getSetPoint() > pidUtils.readCompass()) {
-           motorUtils.RotateLeft(ctrl.getOutput());
+         else if (pid.getSetPoint() > heading) {
+           motorUtils.RotateLeft(pid.getOutput());
          }
       }
       //Q4
-      else if (ctrl.getSetPoint() > 270 &&
-               ctrl.getSetPoint() <= 360){
+      else if (pid.getSetPoint() > 270 &&
+               pid.getSetPoint() <= 360){
                  console.log('Q4');
-         if((180+ctrl.getSetPoint()) > pidUtils.readCompass() ||
-             (ctrl.getSetPoint() - 180) > pidUtils.readCompass()){
-           motorUtils.RotateRight(ctrl.getOutput());
+         if((180+pid.getSetPoint()) > heading ||
+             (pid.getSetPoint() - 180) > heading){
+           motorUtils.RotateRight(pid.getOutput());
          }
-         else if ((ctrl.getSetPoint() - 180) < pidUtils.readCompass()) {
-           motorUtils.RotateLeft(ctrl.getOutput());
+         else if ((pid.getSetPoint() - 180) < heading) {
+           motorUtils.RotateLeft(pid.getOutput());
          }
       }
     }
@@ -130,7 +130,7 @@ board.on('ready', function(){
   });
   compass.once('data', function(){
     pidUtils.init();
-    setInterval(pidUtils.pidLoop, 1);
+    setInterval(pidUtils.pidLoop, 5);
   });
 
 });
