@@ -18,8 +18,7 @@ board.on("ready", function() {
     console.log("  longitude  : ", this.longitude);
     console.log("--------------------------------------");
   });
-
-  gps.on("unknown", function() {
-    console.log(this);
+  gps.on("sentence", function(data) {
+    console.log("sentence", data);
   });
 });

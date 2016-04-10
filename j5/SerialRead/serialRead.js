@@ -2,7 +2,7 @@ var Board = require("firmata");
 // replace the board address with yours (COM5 I believe)
 var board = new Board("COM5", function() {
   console.log("ready");
-
+  console.log("\007");
   board.serialConfig({
     portId: 0x03, // HW_SERIAL3 == 0x03
     baud: 4800
@@ -11,7 +11,7 @@ var board = new Board("COM5", function() {
   var inString = [];
 
   board.serialRead(0x03, function(data) {
-    inString.push(data);
+    inString = inString.concat(data);
 
     if (inString.length > 100) {
       console.log(JSON.stringify(inString));

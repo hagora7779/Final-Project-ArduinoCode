@@ -1,0 +1,8 @@
+1460264345297 Device(s) COM5  
+1460264345317 Connected COM5  
+1460264355318 Device or Firmware Error A timeout occurred while connecting to the Board. 
+
+Please check that you've properly flashed the board with the correct firmware.
+See: https://github.com/rwaldron/johnny-five/wiki/Getting-Started#trouble-shooting
+
+If connecting to a Leonardo or Leonardo clone, press the 'Reset' button on the board, wait approximately 11 seconds for complete reset, then run your program again.  
