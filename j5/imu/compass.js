@@ -7,7 +7,7 @@ board.on("ready", function() {
     controller: "HMC5883L"
   });
 
-  compass.on("headingchange", function() {
+  compass.on("change", function() {
     console.log("headingchange");
     console.log("  heading : ", Math.floor(this.heading));
     console.log("  bearing : ", this.bearing.name);

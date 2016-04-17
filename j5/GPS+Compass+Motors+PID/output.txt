@@ -1,0 +1,14 @@
+1460523577214 Device(s) COM5  
+1460523577234 Connected COM5  
+1460523587234 Device or Firmware Error A timeout occurred while connecting to the Board. 
+
+Please check that you've properly flashed the board with the correct firmware.
+See: https://github.com/rwaldron/johnny-five/wiki/Getting-Started#trouble-shooting
+
+If connecting to a Leonardo or Leonardo clone, press the 'Reset' button on the board, wait approximately 11 seconds for complete reset, then run your program again.  
+error :  { type: 'error',
+  timestamp: 1460523587234,
+  class: 'Device or Firmware Error',
+  message: 'A timeout occurred while connecting to the Board. \n\nPlease check that you\'ve properly flashed the board with the correct firmware.\nSee: https://github.com/rwaldron/johnny-five/wiki/Getting-Started#trouble-shooting\n\nIf connecting to a Leonardo or Leonardo clone, press the \'Reset\' button on the board, wait approximately 11 seconds for complete reset, then run your program again.',
+  data: null }
+error :  [Error: A timeout occurred while connecting to the Board.]
